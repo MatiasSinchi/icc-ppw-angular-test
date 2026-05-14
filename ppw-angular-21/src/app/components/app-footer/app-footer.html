@@ -1,0 +1,19 @@
+<footer class="footer-container">
+  
+  <!-- 1. Uppercase Pipe: Convierte todo a mayúsculas -->
+  <h3>{{ companyName | uppercase }}</h3>
+
+  <!-- 2. Titlecase Pipe: Pone la primera letra de cada palabra en mayúscula -->
+  <p>Creado por: {{ authorRole | titlecase }}</p>
+
+  <!-- 3. Date Pipe: Formatea fechas (puedes usar 'short', 'fullDate', 'y', etc.) -->
+  <p>Fecha de actualización: {{ currentDate | date:'fullDate' }}</p>
+
+  <!-- 4. Currency Pipe: Formatea números como moneda (USD por defecto, o puedes especificar) -->
+  <p>Presupuesto estimado: {{ projectCost | currency:'USD' }}</p>
+
+  <!-- 5. JSON Pipe: Útil para debuggear, convierte objetos a formato JSON legible -->
+  <p>Detalles técnicos del proyecto:</p>
+  <pre>{{ techDetails | json }}</pre>
+
+</footer>

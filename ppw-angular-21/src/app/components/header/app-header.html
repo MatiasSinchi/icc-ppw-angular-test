@@ -1,0 +1,11 @@
+<header class="header">
+    <h1>{{ brand() }}</h1>
+    <div>
+        <button (click)="changeBrand()">Modificar titulo</button>
+        <button (click)="resetBrand()">Resetear titulo</button>
+        <button (click)="toggleInfo()">{{ toggleLabel() }}</button>
+    </div>
+    @if (showInfo()) {
+        <p>Esta es la información adicional.</p>
+    }
+</header>
