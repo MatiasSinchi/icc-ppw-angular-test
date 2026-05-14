@@ -1,5 +1,6 @@
 <section class="hero">
-  <h2>{{ title() }}</h2>
+  <h2>{{ title() | uppercase }}</h2>
+
   <p>{{ subtitle() }}</p>
 
   <button type="button" (click)="toggleMode()">Vista: {{ viewMode() }}</button>
