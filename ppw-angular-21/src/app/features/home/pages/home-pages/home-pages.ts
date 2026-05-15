@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
   selector: 'app-home-pages',
   imports: [AppHeroComponent],
   templateUrl: './home-pages.html',
+  styleUrl: './home-pages.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePages {
   constructor(private router: Router) {}
-  goToStudents() {
+  goToStudentsPage() {
     this.router.navigate(['/students']);
   }
 }

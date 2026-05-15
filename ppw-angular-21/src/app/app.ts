@@ -6,7 +6,7 @@ import { AppFooterComponent } from './components/app-footer/app-footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AppHeader, AppHeroComponent, AppFooterComponent],
+  imports: [RouterOutlet, AppHeader,  AppFooterComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

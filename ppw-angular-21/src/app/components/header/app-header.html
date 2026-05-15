@@ -1,11 +1,30 @@
-<header class="header">
-    <h1>{{ brand() }}</h1>
-    <div>
-        <button (click)="changeBrand()">Modificar titulo</button>
-        <button (click)="resetBrand()">Resetear titulo</button>
-        <button (click)="toggleInfo()">{{ toggleLabel() }}</button>
-    </div>
-    @if (showInfo()) {
-        <p>Esta es la información adicional.</p>
-    }
+<header class="app-header">
+
+    <!-- Título de la app: signal brand transformado a mayúsculas con el pipe -->
+    <span class="app-header__brand">{{ brand() | uppercase }}</span>
+
+    <!--
+        routerLink="/" y routerLink="/students" navegan internamente sin recargar.
+        Aún no hay indicador visual de cuál está activo.
+    -->
+    <nav class="app-header__nav">
+  <!--
+    [routerLinkActiveOptions]="{ exact: true }" → solo activo cuando la URL es exactamente "/".
+    Sin esto, "/" estaría activo también en /students, /profile, etc.
+  -->
+  <a class="nav-link"
+     routerLink="/"
+     routerLinkActive="nav-link--active"
+     [routerLinkActiveOptions]="{ exact: true }">
+    Inicio
+  </a>
+
+  <!-- Estudiantes no necesita exact: "/students" no es prefijo de ninguna otra ruta. -->
+  <a class="nav-link"
+     routerLink="/students"
+     routerLinkActive="nav-link--active">
+    Estudiantes
+  </a>
+</nav>
+
 </header>
