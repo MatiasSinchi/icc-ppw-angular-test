@@ -1,19 +1,18 @@
-<section class="detail-page">
-    <h1 class="detail-page__title">Detalle del estudiante</h1>
+<section class="space-y-6">
+  <header class="space-y-2">
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700">Detalle</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Perfil del estudiante</h1>
+  </header>
 
-    <!--
-        id es una propiedad de la clase, leída con ActivatedRoute.
-        {{ id }} muestra el valor del parámetro :id de la URL.
-    -->
-    <p class="detail-page__id">
-        ID recibido por la ruta: <strong>{{ id }}</strong>
-    </p>
+  <div class="rounded-2xl border-l-4 border-sky-600 bg-white p-6 shadow-sm">
+    <p class="text-sm text-slate-500">ID recibido por la ruta</p>
+    <p class="mt-1 text-2xl font-semibold text-slate-900">{{ id }}</p>
+  </div>
 
-    <!--
-        routerLink="/students" → enlace de retorno al listado.
-        No recarga la página: Angular intercepta el clic y navega internamente.
-    -->
-    <a class="btn-back" routerLink="/students">
-        ← Volver al listado
-    </a>
+  <a
+    routerLink="/students"
+    class="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
+  >
+    ← Volver al listado
+  </a>
 </section>

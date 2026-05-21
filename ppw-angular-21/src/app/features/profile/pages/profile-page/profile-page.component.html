@@ -1,0 +1,68 @@
+<section class="space-y-8">
+
+  <header class="space-y-3">
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700">Perfil</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">Datos del perfil</h1>
+    <p class="text-base leading-7 text-slate-600">
+      Completa tus datos personales. Los errores se muestran después de tocar cada campo.
+    </p>
+  </header>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="max-w-md space-y-5">
+
+    <!-- Nombre -->
+    <div class="space-y-1.5">
+      <label for="nombre" class="block text-sm font-medium text-slate-700">Nombre</label>
+      <input
+        id="nombre"
+        type="text"
+        formControlName="nombre"
+        placeholder="Tu nombre completo"
+        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+      />
+      @if (formUtils.isValidField(profileForm, 'nombre')) {
+        <p class="text-xs text-red-600">{{ formUtils.getFieldError(profileForm, 'nombre') }}</p>
+      }
+    </div>
+
+    <!-- Edad -->
+    <div class="space-y-1.5">
+      <label for="edad" class="block text-sm font-medium text-slate-700">Edad</label>
+      <input
+        id="edad"
+        type="number"
+        formControlName="edad"
+        placeholder="Edad mínima: 18"
+        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+      />
+      @if (formUtils.isValidField(profileForm, 'edad')) {
+        <p class="text-xs text-red-600">{{ formUtils.getFieldError(profileForm, 'edad') }}</p>
+      }
+    </div>
+
+    <!-- Correo -->
+    <div class="space-y-1.5">
+      <label for="correo" class="block text-sm font-medium text-slate-700">Correo electrónico</label>
+      <input
+        id="correo"
+        type="email"
+        formControlName="correo"
+        placeholder="tu@correo.com"
+        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+      />
+      @if (formUtils.isValidField(profileForm, 'correo')) {
+        <p class="text-xs text-red-600">{{ formUtils.getFieldError(profileForm, 'correo') }}</p>
+      }
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="profileForm.invalid"
+      class="w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      Guardar perfil
+    </button>
+
+  </form>
+
+</section>

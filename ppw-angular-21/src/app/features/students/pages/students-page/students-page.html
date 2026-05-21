@@ -1,28 +1,27 @@
-<section class="students-page">
-    <h1 class="students-page__title">Estudiantes</h1>
-    <p class="students-page__subtitle">Selecciona un estudiante para ver su detalle.</p>
+<section class="space-y-6">
+  <header class="space-y-2">
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700">Estudiantes</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Listado de alumnos</h1>
+    <p class="text-base leading-7 text-slate-600">Selecciona un estudiante para ver su detalle.</p>
+  </header>
 
-    <ul class="students-list">
+  <ul class="flex flex-col gap-3">
 
-        <!--
-        @for itera el signal students().
-        track student.id: usa el ID como clave única para optimizar el DOM.
-        -->
-        @for (student of students(); track student.id) {
-        <li class="students-list__item">
-            <!--
-            [routerLink]="['/students', student.id]" → property binding con array.
-            Angular concatena los segmentos: produce /students/1, /students/2, etc.
-            -->
-            <a [routerLink]="['/students', student.id]">
-            {{ student.name }}
-            </a>
-        </li>
+    @for (student of students(); track student.id) {
+      <li class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+        <a
+          [routerLink]="['/students', student.id]"
+          class="flex items-center justify-between text-slate-800 no-underline hover:text-sky-700"
+        >
+          <span class="font-medium">{{ student.name }}</span>
+          <span class="text-xs text-slate-400">ID: {{ student.id }}</span>
+        </a>
+      </li>
+    } @empty {
+      <li class="rounded-2xl border border-slate-200 bg-white p-6 text-center text-slate-500">
+        No hay estudiantes disponibles.
+      </li>
+    }
 
-        } @empty {
-        <!-- Se renderiza automáticamente cuando students() tiene longitud 0 -->
-        <li class="students-empty">No hay estudiantes disponibles.</li>
-        }
-
-    </ul>
+  </ul>
 </section>

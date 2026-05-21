@@ -1,0 +1,141 @@
+<section class="space-y-8">
+
+  <header class="space-y-3">
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700">Configuración</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">Configurar proyecto</h1>
+    <p class="text-base leading-7 text-slate-600">
+      Define los parámetros del proyecto. Agrega lenguajes dinámicamente y configura las opciones.
+    </p>
+  </header>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="max-w-lg space-y-6">
+
+    <!-- Nombre del proyecto -->
+    <div class="space-y-1.5">
+      <label for="nombre" class="block text-sm font-medium text-slate-700">Nombre del proyecto</label>
+      <input
+        id="nombre"
+        type="text"
+        formControlName="nombre"
+        placeholder="Mi proyecto"
+        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+      />
+      @if (formUtils.isValidField(myForm, 'nombre')) {
+        <p class="text-xs text-red-600">{{ formUtils.getFieldError(myForm, 'nombre') }}</p>
+      }
+    </div>
+
+    <!-- Lenguajes (FormArray) -->
+    <div class="space-y-3">
+      <label class="block text-sm font-medium text-slate-700">Lenguajes de programación</label>
+
+      <!-- Input para agregar nuevo lenguaje -->
+      <div class="flex gap-2">
+        <input
+          type="text"
+          [formControl]="newLenguaje"
+          placeholder="Nuevo lenguaje..."
+          (keydown.enter)="onAddLenguaje(); $event.preventDefault()"
+          class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+        />
+        <button
+          type="button"
+          (click)="onAddLenguaje()"
+          class="rounded-lg bg-slate-800 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700"
+        >
+          Agregar
+        </button>
+      </div>
+
+      <!-- Lista dinámica de lenguajes -->
+      <ul formArrayName="lenguajes" class="space-y-2">
+        @for (ctrl of lenguajes.controls; track $index) {
+          <li class="space-y-1">
+            <div class="flex items-center gap-2">
+              <input
+                type="text"
+                [formControlName]="$index"
+                class="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+              />
+              <button
+                type="button"
+                (click)="onDeleteLenguaje($index)"
+                class="rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-600 transition-colors hover:bg-red-50"
+              >
+                Eliminar
+              </button>
+            </div>
+            @if (formUtils.isValidFieldInArray(lenguajes, $index)) {
+              <p class="text-xs text-red-600">{{ formUtils.getFieldErrorInArray(lenguajes, $index) }}</p>
+            }
+          </li>
+        }
+      </ul>
+
+      @if (lenguajes.invalid && lenguajes.touched) {
+        <p class="text-xs text-red-600">Se requieren al menos 2 lenguajes.</p>
+      }
+    </div>
+
+    <!-- Tipo de proyecto (radio buttons) -->
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-slate-700">Tipo de proyecto</label>
+      <div class="flex gap-6">
+        @for (tipo of ['frontend', 'backend', 'fullstack']; track tipo) {
+          <label class="flex cursor-pointer items-center gap-2">
+            <input
+              type="radio"
+              formControlName="tipo"
+              [value]="tipo"
+              class="accent-sky-600"
+            />
+            <span class="text-sm capitalize text-slate-700">{{ tipo }}</span>
+          </label>
+        }
+      </div>
+    </div>
+
+    <!-- Notificaciones (switch) -->
+    <div class="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-4 py-3">
+      <div>
+        <p class="text-sm font-medium text-slate-700">Recibir notificaciones</p>
+        <p class="text-xs text-slate-500">Activar alertas del proyecto.</p>
+      </div>
+      <label class="relative inline-flex cursor-pointer items-center">
+        <input
+          type="checkbox"
+          formControlName="notificaciones"
+          class="peer sr-only"
+        />
+        <div class="h-6 w-11 rounded-full bg-slate-200 after:absolute after:left-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:bg-white after:transition-all peer-checked:bg-sky-600 peer-checked:after:translate-x-full peer-focus:ring-2 peer-focus:ring-sky-300"></div>
+      </label>
+    </div>
+
+    <!-- Términos y condiciones (checkbox requerido) -->
+    <div class="space-y-1.5">
+      <label class="flex cursor-pointer items-start gap-3">
+        <input
+          type="checkbox"
+          formControlName="terminosAceptados"
+          class="mt-0.5 h-4 w-4 rounded accent-sky-600"
+        />
+        <span class="text-sm text-slate-700">
+          Acepto los <span class="text-sky-700 underline">términos y condiciones</span> de uso.
+        </span>
+      </label>
+      @if (myForm.get('terminosAceptados')?.touched && myForm.get('terminosAceptados')?.invalid) {
+        <p class="text-xs text-red-600">Debes aceptar los términos y condiciones.</p>
+      }
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="myForm.invalid"
+      class="w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      Guardar configuración
+    </button>
+
+  </form>
+
+</section>

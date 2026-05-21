@@ -1,15 +1,12 @@
-<section class="home-page">
+<section class="space-y-8">
 
-  <!-- Componente hero reutilizado del módulo 02 -->
   <app-hero></app-hero>
 
-  <!-- Contenedor de acciones de la página -->
-  <div class="home-page__actions">
-    <!--
-      (click) → event binding: cuando el usuario hace clic,
-      Angular llama al método goToStudentsPage() del componente.
-    -->
-    <button class="btn-primary" (click)="goToStudentsPage()">
+  <div class="flex justify-center py-4">
+    <button
+      class="rounded-md border-2 border-[#0f4c81] px-5 py-2.5 text-sm font-medium text-[#0f4c81] transition-colors duration-200 hover:bg-[#0f4c81] hover:text-white"
+      (click)="goToStudentsPage()"
+    >
       Ver Estudiantes →
     </button>
   </div>

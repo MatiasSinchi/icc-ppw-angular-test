@@ -1,0 +1,80 @@
+<section class="mx-auto max-w-md space-y-6 p-6">
+  <header class="space-y-2">
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700">Cuenta</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900">Crear cuenta</h1>
+    <p class="text-sm leading-6 text-slate-600">
+      Completa los campos para registrarte en la plataforma.
+    </p>
+  </header>
+
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-5">
+
+    <!-- Email -->
+    <div class="space-y-1.5">
+      <label for="email" class="block text-sm font-medium text-slate-700">
+        Correo electrónico
+      </label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="ejemplo@correo.com"
+        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+      />
+
+      @if (email.status === 'PENDING') {
+        <p class="text-xs text-slate-400">Verificando disponibilidad...</p>
+      }
+
+      @if (formUtils.isValidField(signupForm, 'email')) {
+        <p class="text-xs text-red-600">{{ formUtils.getFieldError(signupForm, 'email') }}</p>
+      }
+    </div>
+
+    <!-- Password -->
+    <div class="space-y-1.5">
+      <label for="password" class="block text-sm font-medium text-slate-700">
+        Contraseña
+      </label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="Mínimo 6 caracteres"
+        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+      />
+
+      @if (formUtils.isValidField(signupForm, 'password')) {
+        <p class="text-xs text-red-600">{{ formUtils.getFieldError(signupForm, 'password') }}</p>
+      }
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="space-y-1.5">
+      <label for="confirmPassword" class="block text-sm font-medium text-slate-700">
+        Confirmar contraseña
+      </label>
+      <input
+        id="confirmPassword"
+        type="password"
+        formControlName="confirmPassword"
+        placeholder="Repite tu contraseña"
+        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500"
+      />
+
+      @if (confirmPassword.touched && signupForm.hasError('passwordMismatch')) {
+        <p class="text-xs text-red-600">Las contraseñas no coinciden.</p>
+      }
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      [disabled]="signupForm.invalid || email.status === 'PENDING'"
+      class="w-full rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      Crear cuenta
+    </button>
+
+  </form>
+</section>
