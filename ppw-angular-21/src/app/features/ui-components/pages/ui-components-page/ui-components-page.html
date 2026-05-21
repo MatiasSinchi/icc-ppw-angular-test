@@ -1,0 +1,101 @@
+<section class="space-y-10">
+
+  <!-- Header de la página -->
+  <header class="space-y-3">
+    <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-700">UI Components Page</p>
+    <h1 class="text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">Catálogo de Componentes</h1>
+    <p class="mt-3 max-w-2xl text-sm text-slate-600">
+      Página de prueba para validar componentes visuales reutilizables con distintas distribuciones de pantalla.
+    </p>
+  </header>
+
+  <!-- Card DaisyUI presentación -->
+  <div class="rounded-3xl border border-base-200 bg-base-100 p-6 shadow-sm">
+    <p class="text-xs font-semibold uppercase tracking-[0.3em] text-sky-700">UI Components Page</p>
+    <h1 class="mt-2 text-3xl font-black tracking-tight text-slate-900">Catálogo de Componentes</h1>
+    <p class="mt-3 max-w-2xl text-sm text-slate-600">
+      Página de prueba para validar componentes visuales reutilizables con distintas distribuciones de pantalla.
+    </p>
+  </div>
+
+  <!-- ── Paso 5: Gradient CTA Banner ── -->
+  <app-gradient-cta-banner
+    title="Construcción visual consistente"
+    description="Componentes reutilizables para acelerar desarrollo en módulos de negocio."
+    actionLabel="Explorar"
+  />
+
+  <!-- ── Paso 5: Grid de glass-stat-cards ── -->
+  <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <app-glass-stat-card label="Pantallas" value="12" helper="Módulos con layout base" />
+    <app-glass-stat-card label="Componentes" value="9" helper="Piezas reutilizables activas" />
+    <app-glass-stat-card label="Rutas" value="15" helper="Navegación del proyecto" />
+    <app-glass-stat-card label="UI Score" value="A" helper="Consistencia visual" />
+  </section>
+
+  <!-- ── Paso 5: Distribución asimétrica + feature chip list ── -->
+  <section class="grid gap-4 lg:grid-cols-[2fr_1fr]">
+    <article class="rounded-3xl border border-base-200 bg-base-100 p-6 shadow-sm">
+      <h2 class="text-xl font-black tracking-tight text-slate-900">Distribución Asimétrica</h2>
+      <p class="mt-2 text-sm text-slate-600">
+        En desktop, esta zona usa 2 columnas desiguales para contenido principal y panel lateral.
+      </p>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-base-200 bg-sky-50/80 p-4">
+          <p class="text-sm font-bold text-slate-800">Bloque 1</p>
+          <p class="mt-1 text-xs text-slate-600">Resumen de actividad visual.</p>
+        </div>
+        <div class="rounded-2xl border border-base-200 bg-cyan-50/80 p-4">
+          <p class="text-sm font-bold text-slate-800">Bloque 2</p>
+          <p class="mt-1 text-xs text-slate-600">Pruebas de componentes por breakpoints.</p>
+        </div>
+      </div>
+    </article>
+
+    <app-feature-chip-list [chips]="quickChips" title="UI Features" />
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ── Práctica adicional: 5 componentes DaisyUI extra ── -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+
+  <div class="divider text-xs font-bold uppercase tracking-widest text-slate-400">
+    Práctica adicional — 5 componentes DaisyUI
+  </div>
+
+  <!-- 1. Alertas del sistema -->
+  <article class="rounded-3xl border border-base-200 bg-base-100 p-6 shadow-sm">
+    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-sky-700">Componente 1</p>
+    <h2 class="mb-4 text-xl font-black tracking-tight text-slate-900">Alertas del Sistema</h2>
+    <app-alert-list title="Estados de notificación" [alerts]="systemAlerts" />
+  </article>
+
+  <!-- 2. DaisyUI Stats -->
+  <article class="rounded-3xl border border-base-200 bg-base-100 p-6 shadow-sm">
+    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-sky-700">Componente 2</p>
+    <h2 class="mb-4 text-xl font-black tracking-tight text-slate-900">Estadísticas del Proyecto</h2>
+    <app-daisyui-stats [stats]="projectStats" />
+  </article>
+
+  <!-- 3. Steps -->
+  <article class="rounded-3xl border border-base-200 bg-base-100 p-6 shadow-sm">
+    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-sky-700">Componente 3</p>
+    <h2 class="mb-4 text-xl font-black tracking-tight text-slate-900">Flujo de Desarrollo</h2>
+    <app-daisyui-steps title="Módulos del curso" [steps]="devSteps" [activeStep]="3" />
+  </article>
+
+  <!-- 4. Avatar Group -->
+  <article class="rounded-3xl border border-base-200 bg-base-100 p-6 shadow-sm">
+    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-sky-700">Componente 4</p>
+    <h2 class="mb-4 text-xl font-black tracking-tight text-slate-900">Equipo del Proyecto</h2>
+    <app-avatar-group title="Participantes activos" [avatars]="teamAvatars" [extra]="4" />
+  </article>
+
+  <!-- 5. Accordion FAQ -->
+  <article class="rounded-3xl border border-base-200 bg-base-100 p-6 shadow-sm">
+    <p class="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-sky-700">Componente 5</p>
+    <h2 class="mb-4 text-xl font-black tracking-tight text-slate-900">Preguntas Frecuentes</h2>
+    <app-accordion-faq title="FAQ DaisyUI + Angular" [items]="faqItems" />
+  </article>
+
+</section>

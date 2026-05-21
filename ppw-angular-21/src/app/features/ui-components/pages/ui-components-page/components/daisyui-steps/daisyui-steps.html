@@ -1,0 +1,12 @@
+<div class="rounded-2xl border border-base-200 bg-base-100 p-6 shadow-sm">
+  <p class="mb-4 text-sm font-bold text-slate-800">{{ title() }}</p>
+  <ul class="steps w-full">
+    @for (step of steps(); track $index) {
+      <li
+        [class]="$index <= activeStep() ? 'step step-primary' : 'step'"
+      >
+        {{ step }}
+      </li>
+    }
+  </ul>
+</div>

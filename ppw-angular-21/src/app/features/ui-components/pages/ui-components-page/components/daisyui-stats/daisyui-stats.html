@@ -1,0 +1,9 @@
+<div class="stats stats-vertical w-full shadow sm:stats-horizontal">
+  @for (stat of stats(); track stat.title) {
+    <div class="stat">
+      <div class="stat-title">{{ stat.title }}</div>
+      <div class="stat-value text-primary">{{ stat.value }}</div>
+      <div class="stat-desc">{{ stat.desc }}</div>
+    </div>
+  }
+</div>

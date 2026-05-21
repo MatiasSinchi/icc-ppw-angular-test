@@ -1,44 +1,122 @@
-<header class="flex items-center justify-between bg-slate-900 px-6 py-4 text-white">
+<header class="max-lg:collapse bg-base-100 shadow-sm w-full rounded-md">
 
-  <span class="text-xl font-bold tracking-wide">{{ brand() | uppercase }}</span>
+  <input id="navbar-toggle" class="peer hidden" type="checkbox" />
 
-  <nav class="flex gap-6">
-    <a class="text-sm text-slate-300 hover:text-white border-b-2 border-transparent pb-0.5 transition-colors duration-200"
-       routerLink="/"
-       routerLinkActive="!border-red-500 !text-white font-semibold"
-       [routerLinkActiveOptions]="{ exact: true }">
-      Inicio
-    </a>
+  <!-- Overlay para cerrar menú al hacer clic fuera -->
+  <label
+    for="navbar-toggle"
+    class="fixed inset-0 hidden max-lg:peer-checked:block"
+  ></label>
 
-    <a class="text-sm text-slate-300 hover:text-white border-b-2 border-transparent pb-0.5 transition-colors duration-200"
-       routerLink="/students"
-       routerLinkActive="!border-red-500 !text-white font-semibold">
-      Estudiantes
-    </a>
+  <!-- Barra principal -->
+  <div class="collapse-title navbar px-4">
 
-    <a class="text-sm text-slate-300 hover:text-white border-b-2 border-transparent pb-0.5 transition-colors duration-200"
-       routerLink="/layouts"
-       routerLinkActive="!border-red-500 !text-white font-semibold">
-      Layouts
-    </a>
+    <div class="navbar-start">
+      <!-- Botón hamburguesa solo en móvil -->
+      <label for="navbar-toggle" class="btn btn-ghost lg:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+        </svg>
+      </label>
 
-    <a class="text-sm text-slate-300 hover:text-white border-b-2 border-transparent pb-0.5 transition-colors duration-200"
-       routerLink="/signup"
-       routerLinkActive="!border-red-500 !text-white font-semibold">
-      Registrarse
-    </a>
+      <a class="btn btn-ghost text-xl font-black" routerLink="/">
+        {{ brand() | uppercase }}
+      </a>
+    </div>
 
-    <a class="text-sm text-slate-300 hover:text-white border-b-2 border-transparent pb-0.5 transition-colors duration-200"
-       routerLink="/profile"
-       routerLinkActive="!border-red-500 !text-white font-semibold">
-      Perfil
-    </a>
+    <!-- Menú desktop -->
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
 
-    <a class="text-sm text-slate-300 hover:text-white border-b-2 border-transparent pb-0.5 transition-colors duration-200"
-       routerLink="/project-config"
-       routerLinkActive="!border-red-500 !text-white font-semibold">
-      Proyecto
-    </a>
-  </nav>
+        <li>
+          <a routerLink="/" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">
+            Inicio
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/students" routerLinkActive="menu-active">
+            Estudiantes
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/layouts" routerLinkActive="menu-active">
+            Layouts
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/ui-components" routerLinkActive="menu-active">
+            Componentes
+          </a>
+        </li>
+
+        <!-- Submenú Formularios -->
+        <li>
+          <details>
+            <summary>Formularios</summary>
+            <ul class="rounded-box bg-base-100 p-2 shadow">
+              <li>
+                <a routerLink="/signup" routerLinkActive="menu-active">Signup</a>
+              </li>
+              <li>
+                <a routerLink="/profile" routerLinkActive="menu-active">Perfil</a>
+              </li>
+              <li>
+                <a routerLink="/project-config" routerLinkActive="menu-active">Configurar Proyecto</a>
+              </li>
+            </ul>
+          </details>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="navbar-end"></div>
+  </div>
+
+  <!-- Menú móvil colapsable -->
+  <div class="collapse-content z-10 lg:hidden">
+    <ul class="menu rounded-box bg-base-200">
+
+      <li>
+        <a routerLink="/" routerLinkActive="menu-active" [routerLinkActiveOptions]="{ exact: true }">
+          Inicio
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/students" routerLinkActive="menu-active">Estudiantes</a>
+      </li>
+
+      <li>
+        <a routerLink="/layouts" routerLinkActive="menu-active">Layouts</a>
+      </li>
+
+      <li>
+        <a routerLink="/ui-components" routerLinkActive="menu-active">Componentes</a>
+      </li>
+
+      <!-- Submenú Formularios móvil -->
+      <li>
+        <details>
+          <summary>Formularios</summary>
+          <ul>
+            <li>
+              <a routerLink="/signup" routerLinkActive="menu-active">Signup</a>
+            </li>
+            <li>
+              <a routerLink="/profile" routerLinkActive="menu-active">Perfil</a>
+            </li>
+            <li>
+              <a routerLink="/project-config" routerLinkActive="menu-active">Configurar Proyecto</a>
+            </li>
+          </ul>
+        </details>
+      </li>
+
+    </ul>
+  </div>
 
 </header>

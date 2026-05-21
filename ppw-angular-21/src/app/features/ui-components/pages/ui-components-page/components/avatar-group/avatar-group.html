@@ -1,0 +1,19 @@
+<div class="rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm">
+  <p class="mb-4 text-sm font-bold text-slate-800">{{ title() }}</p>
+  <div class="avatar-group -space-x-6 rtl:space-x-reverse">
+    @for (avatar of avatars(); track avatar.initials) {
+      <div class="avatar placeholder">
+        <div [class]="'w-12 rounded-full ' + avatar.color">
+          <span class="text-sm font-bold text-white">{{ avatar.initials }}</span>
+        </div>
+      </div>
+    }
+    @if (extra() > 0) {
+      <div class="avatar placeholder">
+        <div class="w-12 rounded-full bg-neutral text-neutral-content">
+          <span class="text-sm">+{{ extra() }}</span>
+        </div>
+      </div>
+    }
+  </div>
+</div>

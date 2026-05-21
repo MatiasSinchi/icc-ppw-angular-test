@@ -1,0 +1,16 @@
+<div class="rounded-2xl border border-base-200 bg-base-100 p-5 shadow-sm">
+  <p class="mb-4 text-sm font-bold text-slate-800">{{ title() }}</p>
+  <div class="space-y-2">
+    @for (item of items(); track item.question) {
+      <div class="collapse collapse-arrow border border-base-200 bg-base-100">
+        <input type="radio" name="faq-accordion" />
+        <div class="collapse-title text-sm font-medium">
+          {{ item.question }}
+        </div>
+        <div class="collapse-content text-sm text-slate-600">
+          <p>{{ item.answer }}</p>
+        </div>
+      </div>
+    }
+  </div>
+</div>

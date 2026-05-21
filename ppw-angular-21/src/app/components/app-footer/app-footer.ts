@@ -1,18 +1,12 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // IMPORTANTE para usar los pipes
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app/app-footer',
+  selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule], // Agrega CommonModule aquí
+  imports: [RouterLink],
   templateUrl: './app-footer.html',
-  styleUrl: './app-footer.css'
+  styleUrl: './app-footer.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppFooterComponent {
-  // Datos para demostrar los pipes
-  companyName = 'mi empresa de software'; 
-  authorRole = 'desarrollador frontend';
-  currentDate = new Date();
-  projectCost = 2500.50;
-  techDetails = { framework: 'Angular', version: '17+', mode: 'Standalone' };
-}
+export class AppFooterComponent {}
