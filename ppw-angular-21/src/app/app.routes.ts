@@ -7,6 +7,7 @@ import { SingupPage } from './features/singup-page/singup-page';
 import { ProfilePage } from './features/profile/pages/profile-page/profile-page.component';
 import { ProjectConfigPage } from './features/project-config/pages/project-config-page/project-config-page';
 import { UiComponentsPage } from './features/ui-components/pages/ui-components-page/ui-components-page';
+import { SimpsonsPage } from './features/simpsons/pages/simpsons-page/simpsons-page';
 
 export const routes: Routes = [
     { path: '', component: HomePages },
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'profile', component: ProfilePage },
     { path: 'project-config', component: ProjectConfigPage },
     { path: 'ui-components', component: UiComponentsPage },
+    { path: 'simpsons', component: SimpsonsPage },
     { path: '**', redirectTo: '' },
 ];
