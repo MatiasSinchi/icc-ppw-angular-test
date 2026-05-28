@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { inject } from '@angular/core/primitives/di';
+import { Injectable, inject } from '@angular/core';
 import {
   collection,
   collectionData,
