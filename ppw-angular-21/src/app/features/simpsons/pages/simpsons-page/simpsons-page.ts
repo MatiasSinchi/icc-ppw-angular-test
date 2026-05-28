@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { SimpsonsService } from '../../service/simpons.service';
+import { SimpsonsService, SimpsonsCharacter } from '../../service/simpons.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -16,7 +16,7 @@ export class SimpsonsPage {
   private simpsonsService = inject(SimpsonsService);
 
   // rxResource conecta Observable -> estado reactivo (loading, error, value).
-  simpsonsResource = rxResource({
+  simpsonsResource = rxResource<SimpsonsCharacter[], unknown>({
     // stream ejecuta la consulta de personajes de la pagina 1.
     stream: () => this.simpsonsService.getCharacters(1),
   });

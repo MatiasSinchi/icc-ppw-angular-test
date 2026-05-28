@@ -1,12 +1,18 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, delay, map, tap, timeout } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
-interface SimpsonsResponse {
+export interface SimpsonsCharacter {
+  id: string;
+  portrait_path: string;
+  name?: string;
+  occupation?: string;
+  status?: string;
   [key: string]: any;
 }
+export type SimpsonsResponse = SimpsonsCharacter[];
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +21,7 @@ export class SimpsonsService {
   private http = inject(HttpClient);
   private readonly baseUrl = 'https://thesimpsonsapi.com/api';
 
- // Devuelve un Observable tipado; no hace la llamada hasta que alguien se suscribe.
+  // Devuelve un Observable tipado; no hace la llamada hasta que alguien se suscribe.
   getCharacters(page: number = 1): Observable<SimpsonsResponse> {
     return this.http
       // <SimpsonsResponse> le dice a TypeScript que esperamos ese shape de datos.
@@ -27,9 +33,32 @@ export class SimpsonsService {
           console.log('Simpsons API response:', response);
         }),
         // Si la peticion falla, convertimos el error en uno mas legible para la UI.
-        catchError(err =>
+        catchError((err) =>
           throwError(() => new Error('No se pudieron cargar los personajes'))
         )
       );
   }
+
+    getCharacterById(id: number): Observable<SimpsonsCharacter> {
+    return this.http
+      .get<SimpsonsCharacter>(`${this.baseUrl}/characters/${id}`)
+      .pipe(
+        // delay permite simular latencia para ver mejor estados de carga en clase.
+        delay(300),
+        // timeout evita que la peticion quede colgada indefinidamente.
+        timeout(5000),
+        // tap para diagnostico sin alterar el dato.
+        tap((character) => {
+          console.log('Character loaded:', character['name']);
+        }),
+        // map opcional para normalizar campos antes de llegar al componente.
+        map((character) => ({
+          ...character,
+          occupation: character['occupation'] || 'Sin ocupacion registrada',
+        })),
+        catchError(() =>
+          throwError(() => new Error('No se pudo cargar el personaje'))
+        )
+      );
+  }    
 }

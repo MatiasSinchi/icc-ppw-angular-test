@@ -72,8 +72,23 @@
 
       </ul>
     </div>
+    <div class="navbar-end gap-2">
+       @if (currentUser()) {
+    <!-- Usuario autenticado: mostrar email y boton de logout. -->
+    <span class="hidden text-sm text-base-content/60 lg:block">
+      {{ currentUser()!.email }}
+    </span>
 
-    <div class="navbar-end"></div>
+    <button class="btn btn-ghost btn-sm" (click)="logout()">
+      Cerrar sesion
+    </button>
+  } @else {
+    <!-- Sin sesion: navega a la pagina unificada de auth. -->
+    <a class="btn btn-primary btn-sm" routerLink="/auth">
+      Iniciar sesion
+    </a>
+  }
+    </div>
   </div>
 
   <!-- Menú móvil colapsable -->
