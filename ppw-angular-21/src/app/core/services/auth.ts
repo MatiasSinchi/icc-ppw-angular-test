@@ -1,7 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { from } from 'rxjs';
+
 
 
 @Injectable({ providedIn: 'root' })
@@ -11,6 +12,15 @@ export class AuthService {
   // authState emite null cuando no hay sesion, o el objeto User cuando hay sesion.
   // toSignal convierte el Observable en un signal reactivo para usar en templates.
   currentUser = toSignal(authState(this.auth));
+
+  // SOLO DEMO EN CLASE:
+  // Rol por correo para pruebas rapidas de UI/guards.
+  // No usar como mecanismo de seguridad real.
+  role = computed<'admin' | 'user' | null>(() => {
+    const u = this.currentUser();
+    if (!u) return null;
+    return u.email === 'admin@ups.edu.ec' ? 'admin' : 'user';
+  });
 
   // signInWithEmailAndPassword devuelve una Promise.
   // from() la convierte en Observable para poder encadenar operadores RxJS o usar con rxResource.
