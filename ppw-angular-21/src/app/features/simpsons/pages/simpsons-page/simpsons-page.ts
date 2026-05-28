@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { SimpsonsService, SimpsonsCharacter } from '../../service/simpons.service';
-import { RouterLink } from '@angular/router';
+import { SimpsonsService } from '../../service/simpons.service';
+import { SimpsonsResponse } from '../../models/simpsons.interface';
+import { RouterLink, RouterModule } from '@angular/router';
+import { PaginationService } from '../../../../shared/services/pagination.service';
 
 @Component({
   selector: 'app-simpsons-page',
-  imports: [RouterLink],
+  imports: [RouterModule],
   templateUrl: './simpsons-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -14,11 +15,20 @@ export class SimpsonsPage {
 
   // Inyectamos el servicio una sola vez en el componente.
   private simpsonsService = inject(SimpsonsService);
+  paginationService = inject(PaginationService);  // público: el template lo usa
 
-  // rxResource conecta Observable -> estado reactivo (loading, error, value).
-  simpsonsResource = rxResource<SimpsonsCharacter[], unknown>({
-    // stream ejecuta la consulta de personajes de la pagina 1.
-    stream: () => this.simpsonsService.getCharacters(1),
+  readonly charactersPerPage = signal(10);
+
+  simpsonsResource = rxResource<SimpsonsResponse, { page: number; limit: number }>({
+    params: () => ({
+      page: this.paginationService.currentPage(),
+      limit: this.charactersPerPage(),
+    }),
+    stream: ({ params }) =>
+      this.simpsonsService.getCharactersOptions({
+        page: params.page,
+        limit: params.limit,
+      }),
   });
 
   concatImagen(ruta: string) {

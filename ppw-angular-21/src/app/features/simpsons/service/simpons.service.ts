@@ -3,16 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { catchError, delay, map, tap, timeout } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-
-export interface SimpsonsCharacter {
-  id: string;
-  portrait_path: string;
-  name?: string;
-  occupation?: string;
-  status?: string;
-  [key: string]: any;
-}
-export type SimpsonsResponse = SimpsonsCharacter[];
+import {
+  SimpsonsCharacter,
+  SimpsonsResponse,
+  Options,
+} from '../models/simpsons.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -60,5 +55,19 @@ export class SimpsonsService {
           throwError(() => new Error('No se pudo cargar el personaje'))
         )
       );
-  }    
+  } 
+  getCharactersOptions(options: Options = {}): Observable<SimpsonsResponse> {
+  const { page = 1, limit = 10 } = options;
+  return this.http
+    .get<SimpsonsResponse>(
+      `${this.baseUrl}/characters?page=${page}&limit=${limit}`
+    )
+    .pipe(
+      catchError(() =>
+        throwError(() => new Error('No se pudieron cargar los personajes'))
+      )
+    );
+}   
 }
+export type { SimpsonsCharacter };
+
