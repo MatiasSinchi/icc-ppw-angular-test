@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { filter, map, of, switchMap, tap } from 'rxjs';
 import { SimpsonsService } from '../../service/simpons.service';
@@ -16,6 +17,7 @@ import { FavoritesService } from '../../../../core/services/favorites';
 })
 export class SimpsonDetailPage {
   private route = inject(ActivatedRoute);
+  private http = inject(HttpClient);
   private simpsonsService = inject(SimpsonsService);
   private cacheService = inject(SimpsonsCacheService);
     // Convertimos el parametro de ruta a numero.
@@ -61,6 +63,10 @@ export class SimpsonDetailPage {
         this.isFavorite.set(true);
       });
     }
+  }
+
+  concatImagen(ruta: string): string {
+    return `https://cdn.thesimpsonsapi.com/500${ruta}`;
   }
 
 }

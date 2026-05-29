@@ -18,7 +18,7 @@
         <div class="card-body gap-6 md:flex-row">
             <div class="mx-auto md:mx-0">
             <img
-                [src]="characterResource.value()!.portrait_path"
+                [src]="concatImagen(characterResource.value()!.portrait_path)"
                 [alt]="characterResource.value()!.name"
                 class="h-56 w-56 rounded-2xl object-cover ring ring-base-300 ring-offset-2 ring-offset-base-100"
             />

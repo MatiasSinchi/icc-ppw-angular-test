@@ -55,4 +55,19 @@ export class AuthPage {
       },
     });
   }
+
+  signInWithGoogle(): void {
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    this.authService.loginWithGoogle().subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.errorMessage.set('Error al iniciar sesion con Google.');
+        this.isLoading.set(false);
+      },
+    });
+  }
 }

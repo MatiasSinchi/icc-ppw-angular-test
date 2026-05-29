@@ -71,7 +71,7 @@
                                 </td>
                                 <td>
                                     <div class="flex items-center gap-4 py-2">
-                                        <div class="avatar">
+                                        <a [routerLink]="['/simpsons', char.id]" class="avatar cursor-pointer hover:opacity-80 transition-opacity">
                                             <div class="w-14 h-14 rounded-xl bg-base-200 ring ring-base-300 ring-offset-base-100 ring-offset-2">
                                                 <img
                                                     [src]="concatImagen(char.portrait_path)"
@@ -79,11 +79,11 @@
                                                     class="object-cover"
                                                 />
                                             </div>
-                                        </div>
+                                        </a>
                                         <div class="min-w-0">
-                                            <div class="font-bold text-base">
+                                            <a [routerLink]="['/simpsons', char.id]" class="font-bold text-base link link-hover">
                                                 {{ char.name || 'Nombre desconocido' }}
-                                            </div>
+                                            </a>
                                             <div class="text-xs text-base-content/60">
                                                 Personaje de Los Simpson
                                             </div>
