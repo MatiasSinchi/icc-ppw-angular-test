@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth';
 import { Router } from '@angular/router';
@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
   imports: [ReactiveFormsModule],
   templateUrl: './auth-page.html',
   styleUrl: './auth-page.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthPage {
   private fb = inject(FormBuilder);
@@ -34,6 +33,7 @@ export class AuthPage {
     if (this.authForm.invalid) return;
 
     const { email, password } = this.authForm.value;
+    console.log('Intentando login con:', email, password);
     this.isLoading.set(true);
     this.errorMessage.set(null);
 

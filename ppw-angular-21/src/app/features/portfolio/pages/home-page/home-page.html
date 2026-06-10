@@ -1,0 +1,70 @@
+<!-- HERO -->
+<section class="bg-primary text-primary-content rounded-xl px-6 py-12 mb-12">
+  <div class="max-w-3xl mx-auto text-center">
+    <h1 class="text-4xl font-bold mb-4">
+      Matias Sinchi &amp; David Larriva
+    </h1>
+    <p class="text-lg mb-6">
+      Diseñamos y construimos aplicaciones web modernas. Desde la idea hasta el despliegue.
+    </p>
+    <div class="flex flex-wrap gap-3 justify-center">
+      <a routerLink="/contacto" class="btn btn-warning">Iniciar un proyecto</a>
+      <a routerLink="/proyectos" class="btn btn-outline text-white border-white">Ver proyectos</a>
+    </div>
+  </div>
+</section>
+
+<!-- Programadores -->
+<section class="mb-12">
+  <header class="text-center mb-8">
+    <h2 class="text-2xl font-bold">Conoce a los programadores</h2>
+    <p class="mt-2">Dos perfiles complementarios trabajando como un solo equipo.</p>
+  </header>
+
+  <div class="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+    @for (dev of developers(); track dev.slug) {
+      <app-developer-card [developer]="dev" />
+    } @empty {
+      <div class="col-span-2 text-center py-8">
+        <span class="loading loading-spinner loading-lg"></span>
+        <p class="mt-2">Cargando programadores...</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Servicios -->
+<section class="mb-12">
+  <header class="text-center mb-8">
+    <h2 class="text-2xl font-bold">Servicios y especialidades</h2>
+  </header>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    @for (service of services(); track service.id) {
+      <app-service-card [service]="service" />
+    }
+  </div>
+</section>
+
+<!-- Proyectos destacados -->
+<section class="mb-12">
+  <header class="flex items-center justify-between mb-8">
+    <h2 class="text-2xl font-bold">Proyectos destacados</h2>
+    <a routerLink="/proyectos" class="link link-primary text-sm">Ver todos</a>
+  </header>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (project of featured(); track project.slug) {
+      <app-project-card [project]="project" />
+    } @empty {
+      <p class="col-span-full text-center py-8">Aún no hay proyectos destacados.</p>
+    }
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="card bg-base-100 border border-base-300 shadow p-10 text-center">
+  <h2 class="text-2xl font-bold mb-2">¿Tienes un proyecto en mente?</h2>
+  <p class="mb-4">Cuéntanos tu idea y armamos juntos un plan.</p>
+  <a routerLink="/contacto" class="btn btn-primary">Enviar solicitud de contacto</a>
+</section>

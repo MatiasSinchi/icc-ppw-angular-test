@@ -1,0 +1,12 @@
+<section>
+  <header class="text-center mb-8">
+    <h1 class="text-3xl font-bold">Programadores</h1>
+    <p class="mt-2">Conoce a los programadores del equipo. Haz clic para ver más detalles.</p>
+  </header>
+
+  <div class="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+    @for (dev of developers(); track dev.slug) {
+      <app-developer-card [developer]="dev" />
+    }
+  </div>
+</section>

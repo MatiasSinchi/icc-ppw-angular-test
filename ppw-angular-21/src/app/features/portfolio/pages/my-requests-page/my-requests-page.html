@@ -1,0 +1,52 @@
+<section>
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold">Mis solicitudes</h1>
+    <p class="mt-2">Solicitudes de contacto que has enviado.</p>
+  </header>
+
+  @if (requests(); as list) {
+    @if (list.length === 0) {
+      <div class="card bg-base-100 border border-base-300">
+        <div class="card-body items-center text-center">
+          <p>Aún no has enviado solicitudes.</p>
+          <a routerLink="/contacto" class="btn btn-primary mt-3">Enviar la primera</a>
+        </div>
+      </div>
+    } @else {
+      <div class="space-y-4">
+        @for (r of list; track r.id) {
+          <article class="card bg-base-100 border border-base-300 shadow">
+            <div class="card-body gap-2">
+              <div class="flex justify-between items-center">
+                <h3 class="font-bold text-lg">Para: {{ r.developerName }}</h3>
+                <span
+                  class="badge"
+                  [class.badge-warning]="r.status === 'Pendiente'"
+                  [class.badge-success]="r.status === 'Respondida'">
+                  {{ r.status }}
+                </span>
+              </div>
+
+              <p class="text-sm">{{ r.description }}</p>
+
+              @if (r.response) {
+                <div class="bg-base-200 rounded-lg p-3 mt-2">
+                  <p class="text-xs font-bold mb-1">Respuesta del programador:</p>
+                  <p class="text-sm">{{ r.response }}</p>
+                </div>
+              }
+
+              <p class="text-xs text-gray-500 mt-1">
+                Enviada el {{ r.createdAt | date: 'medium' }}
+              </p>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  } @else {
+    <div class="text-center py-12">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+  }
+</section>

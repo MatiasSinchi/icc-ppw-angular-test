@@ -1,0 +1,65 @@
+@if (developer(); as dev) {
+  <article>
+    <!-- Perfil del programador -->
+    <div class="card bg-base-100 border border-base-300 shadow mb-8">
+      <div class="card-body sm:flex-row gap-6 items-center">
+        <div class="avatar shrink-0">
+          <div class="w-36 rounded-full">
+            <img [src]="" />
+          </div>
+        </div>
+
+        <div class="flex-1 text-center sm:text-left">
+          <span class="badge badge-primary mb-2">{{ dev.role }}</span>
+          <h1 class="text-3xl font-bold mb-2">{{ dev.fullName }}</h1>
+          <p class="mb-3">{{ dev.fullBio }}</p>
+
+          <div class="flex flex-wrap gap-2 justify-center sm:justify-start mb-3">
+            @if (dev.github) {
+              <a [href]="dev.github" target="_blank" rel="noopener" class="btn btn-sm btn-outline">GitHub</a>
+            }
+            @if (dev.linkedin) {
+              <a [href]="dev.linkedin" target="_blank" rel="noopener" class="btn btn-sm btn-outline">LinkedIn</a>
+            }
+            @if (dev.website) {
+              <a [href]="dev.website" target="_blank" rel="noopener" class="btn btn-sm btn-outline">Website</a>
+            }
+            <a
+              [routerLink]="['/contacto']"
+              [queryParams]="{ developer: dev.slug }"
+              class="btn btn-sm btn-primary"
+            >
+              Contactar
+            </a>
+          </div>
+
+          <p class="text-sm">
+            <a class="link" [href]="'mailto:' + dev.email">{{ dev.email }}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proyectos -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Proyectos</h2>
+      <p class="mb-4 text-sm">Trabajos en los que ha participado.</p>
+
+      @if (projects().length > 0) {
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for (p of projects(); track p.slug) {
+            <app-project-card [project]="p" />
+          }
+        </div>
+      } @else {
+        <p>Aún no hay proyectos asociados a este programador.</p>
+      }
+    </section>
+  </article>
+} @else {
+  <section class="text-center py-16">
+    <h1 class="text-2xl font-bold">Programador no encontrado</h1>
+    <p class="mt-2">El perfil que buscas no existe.</p>
+    <a routerLink="/programadores" class="btn btn-primary mt-6">Ver programadores</a>
+  </section>
+}

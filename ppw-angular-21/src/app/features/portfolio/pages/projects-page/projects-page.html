@@ -1,0 +1,28 @@
+<section>
+  <header class="text-center mb-8">
+    <h1 class="text-3xl font-bold">Proyectos</h1>
+    <p class="mt-2">Explora todos los proyectos. Usa los filtros para buscar por categoría.</p>
+  </header>
+
+  <div class="flex flex-wrap justify-center gap-2 mb-6">
+    @for (f of filters; track f.value) {
+      <button
+        type="button"
+        class="btn btn-sm"
+        [class.btn-primary]="filter() === f.value"
+        [class.btn-outline]="filter() !== f.value"
+        (click)="filter.set(f.value)"
+      >
+        {{ f.label }}
+      </button>
+    }
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (p of filtered(); track p.slug) {
+      <app-project-card [project]="p" />
+    } @empty {
+      <p class="col-span-full text-center py-8">No hay proyectos en esta categoría.</p>
+    }
+  </div>
+</section>

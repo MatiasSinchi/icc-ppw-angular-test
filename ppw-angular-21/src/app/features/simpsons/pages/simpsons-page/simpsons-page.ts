@@ -32,6 +32,7 @@ export class SimpsonsPage {
   });
 
   concatImagen(ruta: string) {
+  console.warn('[SimpsonsPage] concatImagen: ruta no validada antes de concatenar');
   let rutaCompleta = `https://cdn.thesimpsonsapi.com/500${ruta}`;
   return rutaCompleta.toString();
 }

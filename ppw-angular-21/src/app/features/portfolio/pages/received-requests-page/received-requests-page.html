@@ -1,0 +1,116 @@
+<section>
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold">Solicitudes recibidas</h1>
+    <p class="mt-2">Solicitudes enviadas por usuarios. Puedes cambiar el estado y responder.</p>
+  </header>
+
+  @if (!isReady()) {
+    <div class="text-center py-12">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+  } @else if (!developer()) {
+    <div class="alert alert-warning">
+      <div>
+        <h3 class="font-bold">No estás registrado como programador</h3>
+        <p class="text-sm">Esta vista es exclusiva para programadores del equipo.</p>
+        <a routerLink="/" class="btn btn-sm btn-primary mt-2">Volver al inicio</a>
+      </div>
+    </div>
+  } @else if (requests()?.length === 0) {
+    <div class="card bg-base-100 border border-base-300">
+      <div class="card-body text-center">
+        <p>Aún no has recibido solicitudes.</p>
+      </div>
+    </div>
+  } @else {
+    <div class="space-y-4">
+      @for (r of requests(); track r.id) {
+        <article class="card bg-base-100 border border-base-300 shadow">
+          <div class="card-body gap-3">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div>
+                <h3 class="font-bold text-lg">{{ r.applicantName }}</h3>
+                <a class="text-sm link" [href]="'mailto:' + r.applicantEmail">{{ r.applicantEmail }}</a>
+              </div>
+              <span
+                class="badge"
+                [class.badge-warning]="r.status === 'Pendiente'"
+                [class.badge-success]="r.status === 'Respondida'"
+              >
+                {{ r.status }}
+              </span>
+            </div>
+
+            <div>
+              <p class="text-xs font-bold mb-1">Descripción:</p>
+              <p class="text-sm">{{ r.description }}</p>
+            </div>
+
+            <p class="text-xs text-gray-500">
+              Recibida el {{ r.createdAt | date: 'medium' }}
+            </p>
+
+            @if (editing()[r.id!]; as state) {
+              <div class="bg-base-200 rounded-lg p-4 space-y-3">
+                <div>
+                  <label class="label">
+                    <span class="label-text font-bold">Estado</span>
+                  </label>
+                  <select
+                    class="select select-bordered w-full"
+                    [ngModel]="state.status"
+                    (ngModelChange)="updateField(r.id!, 'status', $event)"
+                  >
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Respondida">Respondida</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="label">
+                    <span class="label-text font-bold">Respuesta</span>
+                  </label>
+                  <textarea
+                    rows="3"
+                    class="textarea textarea-bordered w-full"
+                    placeholder="Escribe tu respuesta..."
+                    [ngModel]="state.response"
+                    (ngModelChange)="updateField(r.id!, 'response', $event)"
+                  ></textarea>
+                </div>
+
+                <div class="flex gap-2 justify-end">
+                  <button type="button" class="btn btn-ghost btn-sm" (click)="cancelEdit(r.id!)">Cancelar</button>
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    [disabled]="saving() === r.id"
+                    (click)="saveEdit(r.id!)"
+                  >
+                    @if (saving() === r.id) {
+                      <span class="loading loading-spinner loading-xs"></span>
+                    } @else {
+                      Guardar
+                    }
+                  </button>
+                </div>
+              </div>
+            } @else {
+              @if (r.response) {
+                <div class="bg-base-200 rounded-lg p-3">
+                  <p class="text-xs font-bold mb-1">Tu respuesta:</p>
+                  <p class="text-sm">{{ r.response }}</p>
+                </div>
+              }
+              <div class="flex justify-end">
+                <button type="button" class="btn btn-outline btn-sm" (click)="startEdit(r)">
+                  {{ r.response ? 'Editar respuesta' : 'Responder' }}
+                </button>
+              </div>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

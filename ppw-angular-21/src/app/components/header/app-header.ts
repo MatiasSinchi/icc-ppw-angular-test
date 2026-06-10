@@ -1,44 +1,33 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { UpperCasePipe } from '@angular/common';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth';
+import { PortfolioService } from '../../features/portfolio/services/portfolio.service';
 
 @Component({
   selector: 'app-header',
-  imports: [UpperCasePipe, RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './app-header.html',
   styleUrls: ['./app-header.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppHeader {
   private authService = inject(AuthService);
+  private portfolio = inject(PortfolioService);
   private router = inject(Router);
 
-  readonly brand = signal("ppw-angular");
-  readonly showInfo = signal(false);
-  readonly toggleLabel = computed(() => this.showInfo() ? "Ocultar info" : "Mostrar info");
+  readonly brand = signal('SinchiLarriva.dev');
 
-  // El signal del servicio: null = no autenticado, User = autenticado.
   currentUser = this.authService.currentUser;
 
-  changeBrand(): void {
-    //actualizar el valor de la senal brand
-    this.brand.update((valor)=> valor + '!');
-  }
-
-  resetBrand(): void {
-    //actualizar el valor de la senal brand
-    this.brand.set("ppw-angular");
-  }
-
-  toggleInfo(): void {
-    this.showInfo.update((valor) => !valor);
-  }
+  // Si el correo del usuario coincide con un programador del CMS, mostramos el panel de programador.
+  isDeveloper = computed(() => {
+    const u = this.currentUser();
+    if (!u?.email) return false;
+    return !!this.portfolio.getDeveloperByEmail(u.email);
+  });
 
   logout(): void {
     this.authService.logout().subscribe(() => {
-      // Redirige al login despues de cerrar sesion.
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
     });
   }
 }

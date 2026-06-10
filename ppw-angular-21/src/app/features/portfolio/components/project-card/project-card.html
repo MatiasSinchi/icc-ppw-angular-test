@@ -1,0 +1,20 @@
+<a [routerLink]="['/proyectos', project().slug]" class="card bg-base-100 border border-base-300 shadow">
+  <figure>
+    <img [src]="project().imageUrl" [alt]="project().name" class="w-full h-44 object-cover" />
+  </figure>
+  <div class="card-body">
+    <div class="flex gap-2 flex-wrap">
+      <span class="badge badge-secondary">{{ project().type }}</span>
+      @if (project().featured) {
+        <span class="badge badge-warning">Destacado</span>
+      }
+    </div>
+    <h3 class="card-title">{{ project().name }}</h3>
+    <p class="text-sm">{{ project().shortDescription }}</p>
+    <div class="flex flex-wrap gap-1 mt-1">
+      @for (tech of project().technologies; track tech) {
+        <span class="badge badge-ghost badge-sm">{{ tech }}</span>
+      }
+    </div>
+  </div>
+</a>

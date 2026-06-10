@@ -1,0 +1,104 @@
+<section class="max-w-2xl mx-auto">
+  <header class="text-center mb-8">
+    <h1 class="text-3xl font-bold">Solicitud de contacto</h1>
+    <p class="mt-2">Cuéntanos sobre tu proyecto. Te respondemos en menos de 48 horas.</p>
+  </header>
+
+  @if (successId(); as id) {
+    <div class="alert alert-success mb-6">
+      <div>
+        <h3 class="font-bold">¡Solicitud enviada!</h3>
+        <p class="text-sm">
+          ID: <span class="font-mono">{{ id }}</span>. Puedes ver el estado en
+          <a routerLink="/mis-solicitudes" class="link font-bold">Mis solicitudes</a>.
+        </p>
+      </div>
+    </div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="card bg-base-100 border border-base-300 shadow">
+    <div class="card-body space-y-4">
+
+      <div>
+        <label class="label" for="name">
+          <span class="label-text font-bold">Nombre del solicitante</span>
+        </label>
+        <input
+          id="name"
+          type="text"
+          formControlName="applicantName"
+          placeholder="Tu nombre completo"
+          class="input input-bordered w-full"
+          [class.input-error]="form.get('applicantName')?.invalid && form.get('applicantName')?.touched"
+        />
+      </div>
+
+      <div>
+        <label class="label" for="email">
+          <span class="label-text font-bold">Correo del solicitante</span>
+        </label>
+        <input
+          id="email"
+          type="email"
+          formControlName="applicantEmail"
+          placeholder="tu@correo.com"
+          class="input input-bordered w-full"
+          [class.input-error]="form.get('applicantEmail')?.invalid && form.get('applicantEmail')?.touched"
+        />
+      </div>
+
+      <div>
+        <label class="label" for="developer">
+          <span class="label-text font-bold">Programador al que diriges la solicitud</span>
+        </label>
+        <select
+          id="developer"
+          formControlName="developerSlug"
+          class="select select-bordered w-full"
+          [class.select-error]="form.get('developerSlug')?.invalid && form.get('developerSlug')?.touched"
+        >
+          <option value="" disabled>Selecciona uno</option>
+          @for (d of developers(); track d.slug) {
+            <option [value]="d.slug">{{ d.fullName }} — {{ d.role }}</option>
+          }
+        </select>
+      </div>
+
+      <div>
+        <label class="label" for="desc">
+          <span class="label-text font-bold">Descripción del proyecto</span>
+        </label>
+        <textarea
+          id="desc"
+          rows="5"
+          formControlName="description"
+          placeholder="Cuéntanos qué necesitas (mínimo 20 caracteres)..."
+          class="textarea textarea-bordered w-full"
+          [class.textarea-error]="form.get('description')?.invalid && form.get('description')?.touched"
+        ></textarea>
+        <span class="text-sm text-gray-500">
+          {{ form.get('description')?.value?.length ?? 0 }} caracteres
+        </span>
+      </div>
+
+      @if (errorMsg()) {
+        <div class="alert alert-error py-2 text-sm">
+          <span>{{ errorMsg() }}</span>
+        </div>
+      }
+
+      <button
+        type="submit"
+        class="btn btn-primary w-full"
+        [disabled]="form.invalid || isSubmitting()"
+      >
+        @if (isSubmitting()) {
+          <span class="loading loading-spinner loading-sm"></span>
+        } @else {
+          Enviar solicitud
+        }
+      </button>
+
+    </div>
+  </form>
+</section>

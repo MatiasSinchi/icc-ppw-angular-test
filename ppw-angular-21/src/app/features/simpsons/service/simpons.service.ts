@@ -25,7 +25,7 @@ export class SimpsonsService {
       .pipe(
         // tap permite inspeccionar/loggear la respuesta sin modificarla.
         tap((response) => {
-          console.log('Simpsons API response:', response);
+          console.log('Total de personajes:', response.count);
         }),
         // Si la peticion falla, convertimos el error en uno mas legible para la UI.
         catchError((err) =>
