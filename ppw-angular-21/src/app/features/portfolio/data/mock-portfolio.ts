@@ -13,8 +13,7 @@ export const MOCK_DEVELOPERS: Developer[] = [
       'Ingeniero de software especializado en aplicaciones Angular y arquitecturas en la nube.',
     fullBio:
       'Construyo productos web escalables con Angular, TypeScript y servicios serverless. Me apasiona la calidad del código, la experiencia del usuario y la automatización de despliegues. Actualmente colaboro en proyectos integradores en la UPS y en clientes freelance enfocados en plataformas educativas y dashboards.',
-    photoUrl:
-      'https://api.dicebear.com/9.x/avataaars/svg?seed=Matias&backgroundColor=b6e3f4',
+    photoUrl: '/developer.jpeg',
     email: 'matiassinchi88@gmail.com',
     github: 'https://github.com/matias-sinchi',
     linkedin: 'https://linkedin.com/in/matias-sinchi',
