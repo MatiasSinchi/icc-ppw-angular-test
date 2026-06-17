@@ -40,7 +40,6 @@ export class SingupPage {
       this.signupForm.markAllAsTouched();
       return;
     }
-    console.log('Registro exitoso:', this.signupForm.value);
     this.router.navigate(['/']);
   }
 }

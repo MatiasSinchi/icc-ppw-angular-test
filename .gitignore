@@ -1,2 +1,10 @@
 .DS_Store
 .vscode
+
+# Strapi tiene su propio repo separado en GitHub
+strapi-backend/
+
+# Archivos con credenciales — NO commitear nunca
+strapi-render.env
+*.env.local
+*.env.production

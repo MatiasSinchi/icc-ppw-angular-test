@@ -97,7 +97,7 @@ export class PortfolioService {
     const url = `${this.base}/programadores?populate=*`;
     const res = await firstValueFrom(
       this.http.get<StrapiResponse<any>>(url).pipe(
-        timeout(2500),
+        timeout(30000),
         catchError(() => of(null)),
       ),
     );
@@ -109,7 +109,7 @@ export class PortfolioService {
     const url = `${this.base}/proyectos?populate=*`;
     const res = await firstValueFrom(
       this.http.get<StrapiResponse<any>>(url).pipe(
-        timeout(2500),
+        timeout(30000),
         catchError(() => of(null)),
       ),
     );
@@ -121,7 +121,7 @@ export class PortfolioService {
     const url = `${this.base}/servicios?populate=*`;
     const res = await firstValueFrom(
       this.http.get<StrapiResponse<any>>(url).pipe(
-        timeout(2500),
+        timeout(30000),
         catchError(() => of(null)),
       ),
     );

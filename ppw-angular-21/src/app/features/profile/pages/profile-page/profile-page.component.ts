@@ -27,6 +27,5 @@ export class ProfilePage {
       this.profileForm.markAllAsTouched();
       return;
     }
-    console.log('Datos del perfil:', this.profileForm.value);
   }
 }

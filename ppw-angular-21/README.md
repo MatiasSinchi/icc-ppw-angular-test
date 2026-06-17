@@ -6,6 +6,19 @@ Presenta los perfiles, proyectos y servicios de los Software Engineers **Matias 
 
 ---
 
+## 🌐 URLs en vivo
+
+| Servicio | URL |
+| -------- | --- |
+| **Aplicación (Firebase Hosting)** | https://angular-firebase-01-f9b81.web.app |
+| **Strapi CMS (Render)** | https://strapi-backend-wahz.onrender.com |
+| **Strapi Admin** | https://strapi-backend-wahz.onrender.com/admin |
+| **API REST pública** | https://strapi-backend-wahz.onrender.com/api/programadores |
+
+> ⚠️ **Nota sobre cold starts:** Render Free Tier "duerme" el servicio tras 15 minutos de inactividad. La primera petición tras un periodo de inactividad puede tardar ~30 s en responder mientras el servicio se reactiva.
+
+---
+
 ## 👥 Autores
 
 | Nombre              | Rol                                  | Contacto                                                    |
@@ -222,6 +235,43 @@ npx firebase deploy --only hosting
 pnpm build --base-href "/repo-name/"
 npx angular-cli-ghpages --dir=dist/ppw-angular-21/browser
 ```
+
+### Strapi en Render (CMS en la nube)
+
+El CMS Strapi está desplegado en **Render** usando PostgreSQL como base de datos. Pasos para replicar:
+
+1. **Sube el código de Strapi a un repo de GitHub** (carpeta `strapi-backend/` separada del Angular).
+2. En [render.com](https://render.com), crea una base de datos **PostgreSQL** (Free tier):
+   - Copia el **Internal Database URL**.
+3. Crea un **Web Service** apuntando al repo:
+   - **Build Command:** `npm install && npm run build`
+   - **Start Command:** `npm run start`
+   - **Plan:** Free
+4. Configura estas variables de entorno:
+
+```env
+NODE_ENV=production
+DATABASE_CLIENT=postgres
+DATABASE_URL=<Internal Database URL>
+DATABASE_SSL=false
+APP_KEYS=<4 secrets separados por coma>
+API_TOKEN_SALT=<secret>
+ADMIN_JWT_SECRET=<secret>
+TRANSFER_TOKEN_SALT=<secret>
+JWT_SECRET=<secret>
+ENCRYPTION_KEY=<secret>
+HOST=0.0.0.0
+PORT=10000
+```
+
+5. Tras el deploy (5-10 min), abre `https://<tu-app>.onrender.com/admin`, crea el usuario admin y habilita los permisos públicos en **Settings → Users & Permissions → Roles → Public** (`find` y `findOne` para `Programador`, `Proyecto` y `Servicio`).
+6. Actualiza `src/environments/environment.ts` con la nueva URL:
+
+```ts
+strapiUrl: 'https://<tu-app>.onrender.com/api',
+```
+
+7. Vuelve a desplegar Angular para que consuma datos del Strapi cloud.
 
 ---
 

@@ -64,6 +64,5 @@ export class ProjectConfigPage {
       this.myForm.markAllAsTouched();
       return;
     }
-    console.log('myForm.value', this.myForm.value);
   }
 }

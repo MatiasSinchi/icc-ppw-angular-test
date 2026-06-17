@@ -33,7 +33,6 @@ export class AuthPage {
     if (this.authForm.invalid) return;
 
     const { email, password } = this.authForm.value;
-    console.log('Intentando login con:', email, password);
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
